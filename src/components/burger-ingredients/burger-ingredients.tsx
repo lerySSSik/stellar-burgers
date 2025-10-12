@@ -9,18 +9,10 @@ import {
   getIngredients,
   getIngredientsLoading
 } from '../../services/selectors';
-import { fetchIngredients } from '../../services/slices/ingredients-slice';
 
 export const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch();
   const ingredients = useSelector(getIngredients);
   const isLoading = useSelector(getIngredientsLoading);
-
-  useEffect(() => {
-    if (!ingredients.length) {
-      dispatch(fetchIngredients());
-    }
-  }, [dispatch, ingredients.length]);
 
   const { buns, mains, sauces } = useMemo(
     () => ({

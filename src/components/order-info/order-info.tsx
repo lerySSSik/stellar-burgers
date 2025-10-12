@@ -4,13 +4,15 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useSelector, useDispatch } from '../../services/store';
-import { getCurrentOrder, getOrderRequest } from '../../services/selectors';
-import { getIngredients } from '../../services/selectors';
+import {
+  getCurrentOrder,
+  getOrderRequest,
+  getIngredients
+} from '../../services/selectors';
 import {
   fetchOrderByNumber,
   clearError
 } from '../../services/slices/order-slice';
-import { fetchIngredients } from '../../services/slices/ingredients-slice';
 
 export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
@@ -29,16 +31,12 @@ export const OrderInfo: FC = () => {
       dispatch(fetchOrderByNumber(parseInt(number, 10)));
     }
 
-    if (!ingredients.length) {
-      dispatch(fetchIngredients());
-    }
-
     return () => {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
     };
-  }, [dispatch, number, orderData, ingredients.length, timeoutId]);
+  }, [dispatch, number, orderData, timeoutId]);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | null = null;
@@ -91,7 +89,7 @@ export const OrderInfo: FC = () => {
     };
   }, [orderData, ingredients]);
 
-  if (orderRequest || !ingredients.length) {
+  if (orderRequest || (ingredients.length === 0 && !orderInfo)) {
     return <Preloader />;
   }
 

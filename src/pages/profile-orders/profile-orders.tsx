@@ -17,16 +17,10 @@ export const ProfileOrders: FC = () => {
   const orders: TOrder[] = useSelector(getUserOrders);
   const isLoading = useSelector(getUserOrdersLoading);
   const error = useSelector(getUserOrdersError);
-  const ingredients = useSelector(getIngredients);
-  const ingredientsLoading = useSelector(getIngredientsLoading);
 
   useEffect(() => {
     dispatch(fetchUserOrders());
-
-    if (ingredients.length === 0) {
-      dispatch(fetchIngredients());
-    }
-  }, [dispatch, ingredients.length]);
+  }, [dispatch]);
 
   if (isLoading) {
     return <div>Загрузка заказов...</div>;
