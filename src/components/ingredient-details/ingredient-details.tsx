@@ -1,5 +1,5 @@
-import { FC, useMemo, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { FC, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useSelector } from '../../services/store';
@@ -10,20 +10,8 @@ import {
 
 export const IngredientDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const ingredients = useSelector(getIngredients);
   const isLoading = useSelector(getIngredientsLoading);
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-
-  useEffect(
-    () => () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    },
-    [timeoutId]
-  );
-
   const ingredientData = useMemo(
     () =>
       id && ingredients.length

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, FC, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { TTabMode, TIngredient } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
@@ -11,6 +12,8 @@ import {
 } from '../../services/selectors';
 
 export const BurgerIngredients: FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const ingredients = useSelector(getIngredients);
   const isLoading = useSelector(getIngredientsLoading);
 
@@ -57,6 +60,10 @@ export const BurgerIngredients: FC = () => {
     }
   };
 
+  const handleOpenIngredient = (id: string) => {
+    navigate(`/ingredients/${id}`, { state: { background: location } });
+  };
+
   return (
     <BurgerIngredientsUI
       currentTab={currentTab}
@@ -70,6 +77,7 @@ export const BurgerIngredients: FC = () => {
       mainsRef={mainsRef}
       saucesRef={saucesRef}
       onTabClick={onTabClick}
+      onOpenIngredient={handleOpenIngredient}
     />
   );
 };

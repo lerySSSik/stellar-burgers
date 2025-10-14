@@ -95,7 +95,7 @@ export const OrderInfo: FC = () => {
 
   if (orderError) {
     return (
-      <div style={{ textAlign: 'center', padding: '20px' }}>
+      <div>
         <h2>Ошибка загрузки заказа</h2>
         <p>{orderError}</p>
         <p>Перенаправление на главную страницу...</p>
@@ -105,7 +105,7 @@ export const OrderInfo: FC = () => {
 
   if (!orderInfo) {
     return (
-      <div style={{ textAlign: 'center', padding: '20px' }}>
+      <div>
         <h2>Заказ не найден</h2>
         <p>Запрашиваемый заказ не существует</p>
       </div>
