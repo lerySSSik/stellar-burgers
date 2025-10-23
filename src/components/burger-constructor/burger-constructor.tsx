@@ -15,6 +15,8 @@ import {
   closeOrderModal
 } from '../../services/slices/order-slice';
 
+import { clearConstructor } from '../../services/slices/constructor-slice';
+
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,6 +46,7 @@ export const BurgerConstructor: FC = () => {
 
   const handleCloseOrderModal = () => {
     dispatch(closeOrderModal());
+    dispatch(clearConstructor());
   };
 
   const price = useMemo(() => {
