@@ -11,11 +11,22 @@ import {
   getIngredientsLoading
 } from '../../services/selectors';
 
+import { addBun, addIngredient } from '../../services/slices/constructor-slice';
+
 export const BurgerIngredients: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const ingredients = useSelector(getIngredients);
   const isLoading = useSelector(getIngredientsLoading);
+
+  const handleAddIngredient = (ingredient: TIngredient) => {
+    if (ingredient.type === 'bun') {
+      dispatch({ type: 'constructor/addBun', payload: ingredient });
+    } else {
+      dispatch({ type: 'constructor/addIngredient', payload: ingredient });
+    }
+  };
 
   const { buns, mains, sauces } = useMemo(
     () => ({
@@ -78,6 +89,7 @@ export const BurgerIngredients: FC = () => {
       saucesRef={saucesRef}
       onTabClick={onTabClick}
       onOpenIngredient={handleOpenIngredient}
+      handleAddIngredient={handleAddIngredient}
     />
   );
 };

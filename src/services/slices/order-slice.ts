@@ -21,7 +21,7 @@ export const createOrder = createAsyncThunk(
   async (ingredients: string[], { rejectWithValue }) => {
     try {
       const response = await orderBurgerApi(ingredients);
-      return response.order || null;
+      return response.order;
     } catch (error: unknown) {
       return rejectWithValue(
         error instanceof Error ? error.message : 'Ошибка создания заказа'
